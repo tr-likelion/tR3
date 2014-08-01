@@ -20,6 +20,7 @@ def add_entry():
 
 	storage['num'] = dataStorage.num
 	storage['count'] = 0
+	storage['count1'] = (storage['count'] +1) - 1
 	storage['title'] = request.form['title']
 	storage['contents'] = request.form['contents']
 
@@ -27,22 +28,6 @@ def add_entry():
 	dataStorage.num += 1
 
 	return redirect(url_for('show_entries'))
-'''
-@app.route('/minus', methods=['POST'])
-def minus_entry():
-	storage={}
-
-	storage['num'] = dataStorage.num
-	storage['count'] = 0
-	storage['title'] = request.form['title']
-	storage['contents'] = request.form['contents']
-
-	dataStorage.put(storage)
-	dataStorage.num += 1
-
-	return redirect(url_for('show_entries'))
-
-'''
 
 @app.route('/del/<idx>', methods=['GET'])
 def del_entry(idx):
@@ -60,7 +45,19 @@ def plus_entry(idx):
 			data['count'] += 1
 			break
 
-	dataStorage.database = sorted(dataStorage.database, key=lambda list: list['count'], reverse=True)
+	#dataStorage.database = sorted(dataStorage.database, key=lambda list: list['count'], reverse=True)
+
+	return redirect(url_for('show_entries'))
+
+@app.route('/minus/<idx>', methods=['GET'])
+def minus_entry(idx):
+	for data in dataStorage.database:
+		if int(idx) == data['num']:
+			data['count1'] -= 1
+			break
+
+
+	#dataStorage.database = sorted(dataStorage.database, key=lambda list: list['count1'], reverse=True)
 
 	return redirect(url_for('show_entries'))
 
@@ -76,7 +73,15 @@ def modify_entry(idx):
 	return redirect(url_for('show_entries'))
 
 
+@app.route('/order/<idx>', methods=['GET'])
+def order_entry(idx):
+	dataStorage.database = sorted(dataStorage.database, key=lambda list: list['count'], reverse=True)
+	return redirect(url_for('show_entries'))
 
+@app.route('/unorder/<idx>', methods=['GET'])
+def unorder_entry(idx):
+	dataStorage.database = sorted(dataStorage.database, key=lambda list: list['count'])
+	return redirect(url_for('show_entries'))
 
 
 

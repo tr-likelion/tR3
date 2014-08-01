@@ -21,13 +21,13 @@
 			<button>{{'+'}}{{entry['count']}}</button>
 		</a>
 		<a href="{{ url_for('minus_entry', idx=entry['num']) }}">
-			<button>{{'-'}}{{entry['count']}}</button>
+			<button>{{'-'}}{{entry['count1']}}</button>
 		</a>
 		<a href="{{ url_for('del_entry', idx=entry['num']) }}">
-			<button>삭제</button>
+			<button> Delete </button>
 		</a>
 		<a class="modify-text">
-			<button>수정</button>
+			<button>Revise</button>
 			<div>
 				<form action="{{ url_for('modify_entry', idx=entry['num']) }}" method="GET">
 					<dl>
@@ -35,11 +35,21 @@
 					<dd><input type="text" size=30 name="title"></dd>
 					<dt>Text:</dt>
 					<dd><textarea name="contents" rows=5 cols=40></textarea></dd>
-					<dd><input type="submit">
+					<dd><input type="submit" value = "Submit">
 					</dl>
 				</form>
 			</div>
 		</a>
+
+		<a href="{{ url_for('order_entry', idx=entry['num']) }}">
+			<button> ↑ </button>
+		</a>
+		
+		<a href="{{ url_for('unorder_entry', idx=entry['num']) }}">
+			<button> ↓ </button>
+		</a>
+
+
 	{% else %}
 		<li>
 			<em>Unbelievable.  No entries here so far</em>
