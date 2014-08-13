@@ -13,6 +13,9 @@
                             <small>
                                 <a href="mailto:{{ comment.email }}">{{ comment.email }}</a> 
                                 <em>{{ comment.date_created.strftime('%Y-%m-%d %H:%M:%S') }}</em>
+                                <a href="{{ url_for('comment_like', id=comment.id }}">
+                                     <button>좋아요</button>
+                                </a>
                             </small>
                         </span>
                     </div>
@@ -23,7 +26,7 @@
                 </div>
             {% endif %}
         </div>
-		
+            		
         <div class="bottomButtons">
             <a href="{{ url_for('article_list') }}" class="btn btn-primary">목록보기</a>
             <a href="{{ url_for('comment_create', article_id=article.id) }}" class="btn btn-info">댓글쓰기</a>

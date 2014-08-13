@@ -52,7 +52,7 @@ def article_update(id):
 		comments = article.comments.order_by(desc(Comment.date_created)).all()
 	
 
-		return render_template('article/update.html', article=article, comments=comments) 
+		return render_template('article/update.html', article=article, comments=comments )  
 
 	elif request.method == 'POST':
 
@@ -107,6 +107,14 @@ def comment_create(article_id):
 		flash(u'댓글을 작성하였습니다.', 'success')
 		return redirect(url_for('article_detail', id=article_id))
 
+@app.route('/comment/create/<int:article_id>', methods=['POST'])
+def comment_like(id):
+	
+	comment = Comment.query.get(id)
+	
+
+
+	return redirect(url_for('article_detail'))
 
 
 # @error Handlers
