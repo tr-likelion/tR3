@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>ajax!</title>
+    
+    <script src="{{ url_for('static', filename='js/jquery-1.11.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script> 
+
+</head>
+
+<body>
+   
+
+   <h1> JQuery Example</h1>
+   <p>
+      <input type="text" size ="5" name="aa"> +
+      <input type="text" size ="5" name="bb"> =
+      <span id="result">?</span>
+   </p>
+   <a href="#" id="calculate">calculate server side</a>
+
+   <script type="text/javascript">
+      $('#calculate').click(function(){
+        $.ajax({
+          url:"/_add_numbers",
+          data:{
+            a: $('input[name="aa"]').val(),
+            b: $('input[name="bb"]').val(),
+            
+          },
+          dataType: 'JSON',
+          success:function(data){
+            $("#result").text(data.result);
+          
+          }
+        });
+      });
+
+   </script>
+
+</body>
+</html>
